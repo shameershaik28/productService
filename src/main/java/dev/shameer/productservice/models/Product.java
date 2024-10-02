@@ -1,7 +1,6 @@
 package dev.shameer.productservice.models;
 
 
-import jdk.jfr.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,17 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
-
-    private int id;
-
-    private String name;
-
+    private Long id;
     private String title;
-
     private String description;
-
     private double price;
-
     private String imageURL;
     private Category category;
 }

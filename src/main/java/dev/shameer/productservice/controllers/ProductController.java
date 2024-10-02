@@ -1,38 +1,71 @@
 package dev.shameer.productservice.controllers;
 
+import dev.shameer.productservice.dtos.RequestBodyProductDto;
 import dev.shameer.productservice.models.Product;
 import dev.shameer.productservice.services.FakeStoreProductService;
 import dev.shameer.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 public class ProductController {
-
+    /*
+    ProductService productService
+     */
+    /*
+    POST /products/
+    Request body
+    {
+        "id" :
+        "title:
+        "descr":
+        "category":
+        "price"
+     }
+     */
     ProductService productService;
-
-    public ProductController(@Qualifier("fakestore") ProductService productService) {
+    public ProductController(@Qualifier("fakestore") ProductService productService){
         this.productService = productService;
     }
-
-
+    /*
+    Qualifier is used to identify the depedency to be injected here
+     */
     @PostMapping("/products")
-    public void createProduct() {
-
+    public Product createProduct(@RequestBody RequestBodyProductDto request){
+        return productService.createProduct(request.getTitle(),
+                request.getDescription(),
+                request.getPrice(),
+                request.getCategory(),
+                request.getImage());
     }
-    @GetMapping("/product/{id}")
-    public Product getProductDetails(@PathVariable("id") int id) {
-        return productService.getSingleProduct(id );
 
+    // /product/1 - get details of a particular product
+    /*
+    id:
+    title:
+    price:
+     */
+    @GetMapping("/products/{id}")
+    public Product getProductDetails(@PathVariable("id") Long id){
+        /*
+        1 - > directly make a call fakestore api
+        2 - > productService.getProductDetails()
+         */
+        return productService.getSingleProduct(id);
     }
+
     @GetMapping("/products")
-    public void getAllProducts() {
-
+    public void getAllProducts(){
     }
 
-    public void updateProduct() {
+
+    public void updateProduct(){
 
     }
-
 }
+
+
+
+/*
+Every api call at the end of the day is a method call inside a controller
+ */

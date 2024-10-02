@@ -9,8 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Catagory {
-
-    private String name;
-    private String description;
+public class Category {
+    private String title;
 }
