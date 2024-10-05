@@ -3,6 +3,7 @@ package dev.shameer.productservice.services;
 import dev.shameer.productservice.dtos.FakeStoreProductdto;
 import dev.shameer.productservice.models.Category;
 import dev.shameer.productservice.models.Product;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -19,13 +20,18 @@ public class FakeStoreProductService implements ProductService{
     }
     @Override
     public Product getSingleProduct(Long productId) {
-        FakeStoreProductdto fakeStoreProductResponse = restTemplate.getForObject(
+        ResponseEntity<FakeStoreProductdto> fakeStoreProductResponse = restTemplate.getForEntity(
                 "https://fakestoreapi.com/products/" + productId,
                 FakeStoreProductdto.class);
+
+       if(productId==0)
+       {
+           throw new IllegalArgumentException("Invalid product id, Please try out again with another product Id");
+       }
         /*
         make a call to external fakestore
          */
-        return fakeStoreProductResponse.toProduct();
+        return fakeStoreProductResponse.getBody().toProduct();
     }
 
     @Override

@@ -5,6 +5,8 @@ import dev.shameer.productservice.models.Product;
 import dev.shameer.productservice.services.FakeStoreProductService;
 import dev.shameer.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +28,7 @@ public class ProductController {
      }
      */
     ProductService productService;
-    public ProductController(@Qualifier("fakestore") ProductService productService){
+    public ProductController(@Qualifier("selfproductservice") ProductService productService){
         this.productService = productService;
     }
     /*
@@ -57,8 +59,7 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> getAllProducts(){
-        return productService.getAllProducts();
+    public void getAllProducts(){
     }
 
 
